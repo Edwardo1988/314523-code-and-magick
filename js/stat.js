@@ -1,7 +1,7 @@
 window.renderStatistics = function(ctx, names, times) {
 
-  var names = ['Вы', 'Катя', 'Петя', 'Оля'];
-  var times = [350.5, 120, 110, 110];
+ // var names = ['Вы', 'Катя', 'Петя', 'Оля'];
+ // var times = [3590.5, 12092, 3700, 5978];
 
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.strokeRect(110, 20, 420, 270);
@@ -19,21 +19,20 @@ window.renderStatistics = function(ctx, names, times) {
 
 
 
-var getMaxElement = function(){
+var getMaxElement = function(array){
   var max = 0;
   var maxIndex = 0;
-  for (var i = 0; i < times.length, i++;){
-  var time = arr[i];
+  for (var i = 0; i < array.length; i++){
+  var time = array[i];
   if (time > max){
     max = time;
-    maxIndex = i;
     }
   }
   return max;
 }
 
 
-var histogramMaxElementY = times[0]; 
+var histogramMaxElementY = getMaxElement(times);
 var histogramHeight = 150;
 var columnWidth = 40;
 var columnInterval = 50;
@@ -52,6 +51,7 @@ for (var i = 0; i <= times.length - 1; i++){
   else {ctx.fillStyle = otherPlayersColour;}
   ctx.fillRect(histogramX + columnWidth * i + columnInterval * i, histogramY, columnWidth, times[i] * histogramHeight / - histogramMaxElementY);
   ctx.fillStyle = textColour;
+  ctx.globalAlpha = 1;
   ctx.fillText(names[i], histogramX + columnWidth * i + columnInterval * i, histogramY + 20);
   ctx.fillText(times[i], histogramX + columnWidth * i + columnInterval * i, - (times[i] * histogramHeight / histogramMaxElementY) + 240);
   }
