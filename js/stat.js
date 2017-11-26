@@ -1,3 +1,26 @@
+var getMaxElement = function(array){
+  var max = 0;
+  var maxIndex = 0;
+  for (var i = 0; i < array.length; i++){
+    var time = array[i];
+    if (time > max){
+      max = time;
+    }
+  }
+  return max;
+}
+
+var getMinElement = function(array){
+  var min = array[0];
+  for (var i = 1; i < array.length; i++){
+    var time = array[i];
+    if (time < min){
+      min = time;
+    }
+  }
+  return min;
+}
+
 window.renderStatistics = function(ctx, names, times) {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.strokeRect(110, 20, 420, 270);
@@ -7,20 +30,18 @@ window.renderStatistics = function(ctx, names, times) {
   ctx.fillRect(100, 10, 420, 270);
   ctx.fillStyle = 'black';
   ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', 120, 40);
+  var histogramMinElementY = getMinElement(times);
+  var winnerCheck = 0;
+  for (var i=0; i <= times.length - 1; i++){
+    if (names[i] == 'Вы' && times[i] == histogramMinElementY){
+      winnerCheck = 1;
+    }
+  }
+  if (winnerCheck == 1){ctx.fillText('Ура вы победили!', 120, 40);}
+  else{ctx.fillText('Увы, вас опередили', 120, 40);}  
   ctx.fillText('Список результатов:', 120, 60);
 
-  var getMaxElement = function(array){
-    var max = 0;
-    var maxIndex = 0;
-    for (var i = 0; i < array.length; i++){
-      var time = array[i];
-      if (time > max){
-        max = time;
-      }
-    }
-    return max;
-  }
+
 
   var histogramMaxElementY = getMaxElement(times);
   var histogramHeight = 150;
